@@ -1,6 +1,6 @@
 # Orchid  IoT Monitoring System
 
-This project integrates environmental sensing and computer vision for orchid disease monitoring in greenhouse environments.
+
 <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/cda9245a-0092-4249-ba2c-de2866586114" />
 
 ## Overview

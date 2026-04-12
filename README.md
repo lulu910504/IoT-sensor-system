@@ -23,11 +23,10 @@ The system combines multi-sensor data acquisition with deep learning–based ima
 - Data logging (CSV format)  
 
 ## Implementation
-
 - Sensors are integrated via I2C and serial communication  
 - Power consumption is reduced using MOSFET-based control  
 - Environmental data is logged and used for further analysis
-- 
+
 ## Circuit Design
 - Power control implemented using IRLZ34N MOSFET for switching sensor modules
 - Reverse current protection using IN5819 Schottky diode

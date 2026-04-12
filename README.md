@@ -1,4 +1,3 @@
-# IoT-sernsor-system
 # Orchid  IoT Monitoring System
 
 This project integrates environmental sensing and computer vision for orchid disease monitoring in greenhouse environments.

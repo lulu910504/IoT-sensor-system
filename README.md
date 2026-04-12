@@ -36,3 +36,18 @@ The system combines multi-sensor data acquisition with deep learning–based ima
 
 The sensing device is designed and assembled as a portable unit.
 <img width="1477" height="1108" alt="image" src="https://github.com/user-attachments/assets/4fb1b0c5-cc1f-43a0-b189-866e40a537a7" />
+
+## Multi-I2C Design
+
+To support multiple sensors with fixed I2C addresses, a TCA9548A multiplexer is used.
+
+- Each sensor group is assigned to a dedicated I2C channel  
+- Channel switching is performed before each sensor read  
+- Enables simultaneous use of identical sensors (e.g., dual FS3000)  
+- Improves system scalability and stability  
+
+Example:
+
+```cpp
+tcaSelect(TCA_CH_FS1);
+tcaSelect(TCA_CH_FS2);

@@ -13,11 +13,11 @@
 #include <HTTPClient.h>
 
 // WiFi與ThingSpeak設定
-const char* ssid = "melt204";
-const char* password = "33669821";
+const char* ssid = "";
+const char* password = "";
 WiFiClient client;
-unsigned long myChannelNumber = 2942380 ;
-const char* myWriteAPIKey = "DO5TQKL9ISD8QDGS";
+unsigned long myChannelNumber =  ;
+const char* myWriteAPIKey = "";
 
 // 定義硬體腳位
 #define CO2_VCC 4

@@ -13,11 +13,11 @@
 #include <HTTPClient.h>
 
 // WiFi與ThingSpeak設定
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "melt204";
+const char* password = "33669821";
 WiFiClient client;
-unsigned long myChannelNumber =  ;
-const char* myWriteAPIKey = "";
+unsigned long myChannelNumber = 2942380 ;
+const char* myWriteAPIKey = "DO5TQKL9ISD8QDGS";
 
 // 定義硬體腳位
 #define CO2_VCC 4
@@ -112,7 +112,7 @@ void setup() {
   while (true) {
     DateTime now = rtc.now();
     Serial.printf("目前時間: %02d:%02d:%02d\n", now.hour(), now.minute(), now.second());
-    if (now.minute() % 5 == 0) {
+    if (now.minute() % 1 == 0) {
       Serial.printf("現在時間 %02d:%02d，符合5分鐘倍數，開始運行!\n", now.hour(), now.minute());
       break;
     }
@@ -128,9 +128,9 @@ void uploadToThingSpeak(float temperature, float humidity, float lux, float airf
                  "&field2=" + String(humidity, 1) +
                  "&field3=" + String(lux, 2) +
                  "&field4=" + String(airflow1, 2) +
-                 "&field7=" + String(airflow2, 2);
-                 "&field5=" + String(co2, 0) +
-                 "&field6=" + String(o2, 2);
+                 "&field5=" + String(airflow2, 2)+
+                 "&field6=" + String(co2, 0) +
+                 "&field7=" + String(o2, 2);
 
     http.begin(url);
     int httpCode = http.GET();
@@ -257,14 +257,21 @@ void readAndDisplayData(bool saveToSD = false) {
   oled.printf("Wind2: %.2f m/s\n", airflow2);
   oled.printf("CO2: %.0f ppm\n", co2);
   oled.printf("O2: %.2f %%\n", o2);
+  //上傳與儲存
+  if (saveToSD) {
+  uploadToThingSpeak(temperature, humidity, lux, airflow1, airflow2, co2, o2);
+  //########少了這個資料就會沒存到QQ#######
+  logData(now, temperature, humidity, lux, airflow1, airflow2, co2, o2);
 
+  }
 }
 
 void logData(DateTime now, float temperature, float humidity, float lux,
              float airflow1, float airflow2, float co2, float o2) {
   dataFile = SD.open("/data.txt", FILE_APPEND);
   if (dataFile) {
-    dataFile.printf("%04d/%02d/%02d %02d:%02d:%02d, %.1f, %.1f, %.2f, %.2f, %.0f, %.2f\n",
+    // float 欄位少了一個 %.2f 給 airflow2 如果多加物件要記得
+    dataFile.printf("%04d/%02d/%02d %02d:%02d:%02d, %.1f, %.1f, %.2f, %.2f, %.2f, %.0f, %.2f\n",
                     now.year(), now.month(), now.day(),
                     now.hour(), now.minute(), now.second(),
                     temperature, humidity, lux, airflow1, airflow2, co2, o2);
